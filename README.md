@@ -1,12 +1,12 @@
-# Twitter Sentiment Analysis — US Airlines
+# Twitter Sentiment Analysis
 
-Classifying airline-related tweets as **negative / neutral / positive**, comparing two feature-extraction strategies (TF-IDF vs. pretrained word embeddings) across two families of models (classical ML vs. deep learning).
+Classifying tweets as **negative / neutral / positive**, comparing two feature-extraction strategies (TF-IDF vs. pretrained word embeddings) across two families of models (classical ML vs. deep learning).
 
 ## Dataset
 
-- **~14,640 tweets** directed at 6 major US airlines (Twitter US Airline Sentiment dataset).
+- **~14,640 tweets** directed at 6 major US airlines.
 - Each tweet is labeled `negative`, `neutral`, or `positive`.
-- **Class distribution is heavily imbalanced:** ~63% negative, 21% neutral, 16% positive — this shaped every downstream decision (metric choice, class weighting).
+- **Class distribution is heavily imbalanced:** ~63% negative, 21% neutral, 16% positive.
 
 ## Approach
 
@@ -51,7 +51,7 @@ Classifying airline-related tweets as **negative / neutral / positive**, compari
 
 ## Key Insight
 
-A well-tuned **linear SVM on TF-IDF features essentially matches a BiLSTM with pretrained embeddings** — the deep learning model wins narrowly on macro-F1 (+0.0005) while the SVM wins on raw accuracy, at a fraction of the training time and compute. On a dataset of this size (~15K short, noisy tweets), the added representational power of sequence models doesn't translate into a clear win — a useful, defensible finding for justifying model choice on similarly-sized real-world text datasets.
+A well-tuned **linear SVM on TF-IDF features essentially matches a BiLSTM with pretrained embeddings** — the deep learning model wins narrowly on macro-F1 (+0.0005) while the SVM wins on raw accuracy, at a fraction of the training time and compute. On a dataset of this size (~15K short, noisy tweets), the added representational power of sequence models doesn't translate into a clear win.
 
 ## Tech Stack
 `Python` · `pandas` / `numpy` · `scikit-learn` · `NLTK` · `TensorFlow / Keras` · `Gensim` (GloVe-Twitter-100) · `matplotlib` / `seaborn`
@@ -69,8 +69,3 @@ A well-tuned **linear SVM on TF-IDF features essentially matches a BiLSTM with p
 pip install -r requirements.txt   # pandas, scikit-learn, nltk, tensorflow, gensim, seaborn, matplotlib
 jupyter notebook twitter_sentiment_analysis.ipynb
 ```
-
-## Possible Extensions
-- Fine-tune a transformer (e.g. DistilBERT) as an upper-bound comparison point.
-- Address class imbalance with oversampling (SMOTE on TF-IDF space) as an alternative to class weighting.
-- Error analysis on the neutral class, which is typically the hardest to separate from both negative and positive.
